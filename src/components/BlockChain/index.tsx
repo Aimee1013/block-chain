@@ -39,6 +39,7 @@ const BlockChain = () => {
   const onAdd = () => {
     const previousBlock = blocks[blocks.length - 1];
     const currentBlockId = blocks.length + 1;
+    // create a new block
     const newBlock: IBlock = {
       blockId: blocks.length + 1,
       previousHash: previousBlock.hash,
@@ -55,6 +56,7 @@ const BlockChain = () => {
    */
   const onDelete = () => {
     if (blocks.length > 1) {
+      // delete the last block
       let prevBlock = [...blocks]
       setBlocks(prevBlock.slice(0, blocks.length - 1))
       toast.success('Successfully deleted!');
@@ -78,6 +80,7 @@ const BlockChain = () => {
       if (index < targetindex) {
         return block;
       } else if (index === targetindex) {
+        // update current block hash
         const current = {
           ...block,
           hash
@@ -85,6 +88,7 @@ const BlockChain = () => {
         previousBlock = current;
         return current;
       } else {
+        // update the next others hash according to the previous blocks updated
         const next = {
           ...block,
           previousHash: previousBlock.hash,
