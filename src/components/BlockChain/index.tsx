@@ -45,9 +45,8 @@ const BlockChain = () => {
       hash: sha256(JSON.stringify(currentBlockId + "" + previousBlock.previousHash + 0))
     }
     toast.success('Successfully added!');
-    return setBlocks([...blocks, newBlock])
-
-  }
+    return setBlocks([...blocks, newBlock]);
+  };
 
   /**
    * Complete this function
@@ -65,7 +64,7 @@ const BlockChain = () => {
       });
       return;
     }
-  }
+  };
 
   /**
    * Complete this function
@@ -84,7 +83,7 @@ const BlockChain = () => {
           hash
         }
         previousBlock = current;
-        return current
+        return current;
       } else {
         const next = {
           ...block,
@@ -108,8 +107,8 @@ const BlockChain = () => {
    */
   return (
     <div className={styles.blockChain}>
-      <h1>Block Chain Demo</h1>
-      <div>Total Blocks: {blocks.length}</div>
+      <h1 className={styles.title}>Block Chain Demo</h1>
+      <div className={styles.total}>Total Blocks: {blocks.length}</div>
       <div className={styles.blocks}>
         {blocks.map(block => (<Block
           key={`blockid-${block.blockId}`}
@@ -120,7 +119,7 @@ const BlockChain = () => {
           onDelete={onDelete} />)
         )}
       </div>
-      <button type="button" onClick={() => onAdd()}>Add Block</button>
+      <button className={styles.button} type="button" onClick={() => onAdd()}>Add Block</button>
     </div>
   );
 }

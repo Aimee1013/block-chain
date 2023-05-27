@@ -15,7 +15,7 @@ import Block from './';
  * onHash is called and the hash change is reflected in the component
  */
 it('Hash is set on load', () => {
-  
+
 });
 
 /**
