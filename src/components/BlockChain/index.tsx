@@ -54,19 +54,57 @@ const BlockChain = () => {
    * onDelete should delete the last block
    * Should only need to pass to the last block
    */
-  const onDelete = () => {
-    if (blocks.length > 1) {
-      // delete the last block
-      let prevBlock = [...blocks]
-      setBlocks(prevBlock.slice(0, blocks.length - 1))
-      toast.success('Successfully deleted!');
-    } else {
-      toast("The GenesisBlock should not be deleted", {
+
+  // This is my first thought when i read the requirements above the comments.
+  // const onDelete = () => {
+  //   if (blocks.length > 1) {
+  //     // delete the last block
+  //     let prevBlock = [...blocks]
+  //     setBlocks(prevBlock.slice(0, blocks.length - 1))
+  //     toast.success('Successfully deleted!');
+  //   } else {
+  //     toast("The GenesisBlock should not be deleted!", {
+  //       icon: '🔥',
+  //     });
+  //     return;
+  //   }
+  // };
+
+  // I tried another way to make the last block can be deleted.(I am not sure if i understand the requirement correctly this time.)
+  const onDelete = (targetBlock: number) => {
+    const targetIndex = targetBlock - 1
+    let previousBlock: IBlock;
+    const newBlocks = blocks.reduce((prev, block, index) => {
+      if (index < targetIndex) {
+        prev.push(block);
+        previousBlock = block;
+        return prev;
+      } else if (index === targetIndex) {
+        return prev;
+      } else {
+        const next = {
+          ...block,
+          blockId: previousBlock ? previousBlock.blockId + 1 : 1,
+          previousHash: previousBlock ? previousBlock.hash : '0'.repeat(64),
+          hash: sha256(JSON.stringify(block.blockId + "" + '0'.repeat(64) + 0))
+        }
+        previousBlock = next;
+        prev.push(next);
+        toast.success('Successfully deleted!');
+        return prev;
+      }
+    }, [] as IBlock[])
+
+    // create a initial block
+    if (newBlocks.length === 0) {
+      toast("The GenesisBlock is coming...", {
         icon: '🔥',
       });
-      return;
+      newBlocks.push(GenisisBlock);
     }
+    setBlocks(newBlocks)
   };
+
 
   /**
    * Complete this function

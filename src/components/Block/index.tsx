@@ -10,7 +10,7 @@ interface Props {
   previousHash?: string;
   hash: string | undefined; // hash is undefined until set on initial render or hash updates via onHash
 
-  onDelete?: () => void;
+  onDelete?: (blockId: number) => void;
   onHash: (blockId: number, hash: string) => void;
 }
 
@@ -72,7 +72,7 @@ const Block = ({ blockId, previousHash = '0'.repeat(64), hash, onHash, onDelete 
         Valid Block <span>{hash && isValidHash(hash) ? "Valid" : "Not Valid"}</span>
       </div>
       <button className={styles.button} type="button" onClick={() => onMine()} style={{ margin: '10px 0' }}>Mine</button>
-      {onDelete && <button className={styles.button} type="button" onClick={() => onDelete()}>Delete</button>}
+      {onDelete && <button className={styles.button} type="button" onClick={() => onDelete(blockId)}>Delete</button>}
       <Toaster />
     </div>
   )
