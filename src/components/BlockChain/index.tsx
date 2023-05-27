@@ -73,7 +73,7 @@ const BlockChain = () => {
    */
   const onHash = (targetBlockId: number, hash: string) => {
     const targetindex = targetBlockId - 1;
-    let previousBlock: any = null;
+    let previousBlock: IBlock;
     const newBlocks = blocks.map((block, index) => {
       if (index < targetindex) {
         return block;
