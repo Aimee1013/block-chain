@@ -70,9 +70,9 @@ const BlockChain = () => {
   //   }
   // };
 
-  // I tried another way to make the last block can be deleted.(I am not sure if i understand the requirement correctly this time.)
+  // I tried another way to make the last block to be deleted.(I am not sure if i understand the requirements correctly this time.)
   const onDelete = (targetBlock: number) => {
-    const targetIndex = targetBlock - 1
+    const targetIndex = targetBlock - 1;
     let previousBlock: IBlock;
     const newBlocks = blocks.reduce((prev, block, index) => {
       if (index < targetIndex) {
@@ -82,6 +82,7 @@ const BlockChain = () => {
       } else if (index === targetIndex) {
         return prev;
       } else {
+        // update others hash
         const next = {
           ...block,
           blockId: previousBlock ? previousBlock.blockId + 1 : 1,

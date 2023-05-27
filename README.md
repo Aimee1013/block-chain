@@ -7,6 +7,9 @@
  * The comments for the onDelete function says delete the last block, so now the last block can be deleted no matter which block I click.
  * But it seems so weird, i'm not sure if I understand this requirement correctly.
 
+ * Now I tried another way to make the last block to be deleted, and updated the commit.
+ * I am not sure if i understand the requirements correctly this time. 
+
  
 # Setup
 Install all packages using npm
