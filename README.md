@@ -9,6 +9,7 @@
 
  * Now I tried another way to make the last block to be deleted, and updated the commit.
  * I am not sure if i understand the requirements correctly this time. 
+ * I updated the block deletion according to latest requirement :only blocks that can be deleted (i.e. the last block) should have a delete button visible.
 
  
 # Setup

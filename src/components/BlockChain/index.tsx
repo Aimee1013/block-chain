@@ -56,7 +56,7 @@ const BlockChain = () => {
    */
 
   // This is my first thought when i read the requirements above the comments.
-  // I updated the block deletion according latest requirement :only blocks that can be deleted (i.e. the last block) should have a delete button visible.
+  // I updated the block deletion according to latest requirement :only blocks that can be deleted (i.e. the last block) should have a delete button visible.
   const onDelete = () => {
     if (blocks.length > 1) {
       // delete the last block
