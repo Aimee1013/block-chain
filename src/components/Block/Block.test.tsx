@@ -25,7 +25,7 @@ it('Hash is set on load', () => {
  * On render, the text 'Not Valid' should be in the document as the hash is not valid
  */
 it("Shows not valid text", () => {
-  render(<Block blockId={1} hash="invalidHash" onHash={jest.fn()} />);
+  render(<Block blockId={1} hash="invalid" onHash={jest.fn()} />);
   // when the hash is invalid
   const notValidText = screen.getByText("Not Valid");
   expect(notValidText).toBeInTheDocument();
@@ -37,8 +37,8 @@ it("Shows not valid text", () => {
  */
 it("Delete is called correctly", () => {
   const fakeOnDelete = jest.fn();
-  render(<Block blockId={1} hash="ValidHash" onHash={jest.fn()} onDelete={fakeOnDelete} />);
-  const deleteButton = screen.getByText("button");
+  render(<Block blockId={1} hash="invalid" onHash={jest.fn()} onDelete={fakeOnDelete} />);
+  const deleteButton = screen.getByText("Delete");
   userEvent.click(deleteButton);
   expect(fakeOnDelete).toHaveBeenCalledTimes(1);
 });
@@ -50,15 +50,16 @@ it("Delete is called correctly", () => {
  */
 it("Mining works correctly", () => {
   const fakeOnHash = jest.fn();
-  render(<Block blockId={1} hash="invalidHash" onHash={fakeOnHash} />);
+  render(<Block blockId={1} hash="000" onHash={fakeOnHash} />);
   expect(fakeOnHash).toHaveBeenCalledTimes(1)
 
-  const mineButton = screen.getByText("button");
+  const mineButton = screen.getByText("Mine");
   userEvent.click(mineButton);
 
   // when the hash is valid
-  const validText = screen.getByText("Valid");
-  expect(validText).toBeInTheDocument();
+  const hash1 = screen.getAllByText('Hash')[0].children[0].textContent || '';
+  expect(hash1.substring(0, 3)).toBe('000');
+  expect(screen.getByText("Valid")).toBeInTheDocument();
 });
 
 /**
@@ -69,7 +70,7 @@ it("Mining works correctly", () => {
 it("Changing data effects hash", () => {
   // changes effect the hash and called
   const fakeOnHash = jest.fn();
-  render(<Block blockId={1} hash="validHash" onHash={fakeOnHash} />);
+  render(<Block blockId={1} hash="valid" onHash={fakeOnHash} />);
   expect(fakeOnHash).toHaveBeenCalledTimes(1)
 
   // data textarea can be changed to New Data

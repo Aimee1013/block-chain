@@ -38,12 +38,11 @@ const BlockChain = () => {
    */
   const onAdd = () => {
     const previousBlock = blocks[blocks.length - 1];
-    const currentBlockId = blocks.length + 1;
     // create a new block
     const newBlock: IBlock = {
       blockId: blocks.length + 1,
-      previousHash: previousBlock.hash,
-      hash: sha256(JSON.stringify(currentBlockId + "" + previousBlock.previousHash + 0))
+      previousHash: blocks.length <= 1 ? '0'.repeat(64) : previousBlock.hash,
+      hash: sha256(JSON.stringify(`currentBlockId + "" + ${blocks.length <= 1 ? '0'.repeat(64) : previousBlock.previousHash} + 0`))
     }
     toast.success('Successfully added!');
     return setBlocks([...blocks, newBlock]);
@@ -58,7 +57,7 @@ const BlockChain = () => {
   // This is my first thought when i read the requirements above the comments.
   // I updated the block deletion according to latest requirement :only blocks that can be deleted (i.e. the last block) should have a delete button visible.
   const onDelete = () => {
-    if (blocks.length > 1) {
+    if (blocks.length > 0) {
       // delete the last block
       let prevBlock = [...blocks]
       // setBlocks(prevBlock.slice(0, blocks.length - 1))
@@ -66,7 +65,7 @@ const BlockChain = () => {
       setBlocks(prevBlock)
       toast.success('Successfully deleted!');
     } else {
-      toast("The GenesisBlock should not be deleted!", {
+      toast("The GenesisBlock is back!", {
         icon: '🔥',
       });
       return;
