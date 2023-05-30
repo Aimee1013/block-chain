@@ -12,7 +12,8 @@ import BlockChain from './';
 
 it('Block chain should be empty', () => {
   render(<BlockChain />);
-  expect(screen.getByText("Total Blocks: 1")).toBeInTheDocument();
+  userEvent.click(screen.getByText('Delete'));
+  expect(screen.getByText("Total Blocks: 0")).toBeInTheDocument();
 });
 
 it('Add block works correctly', () => {
